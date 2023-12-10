@@ -9,7 +9,7 @@ public class Employee {
 		MALE, FEMALE
 	}
 
-	public static Gender getGender(String string) {
+	public static Gender buildGender(String string) {
 		switch (string) {
 		case "Male":
 			return Gender.MALE;
