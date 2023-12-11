@@ -2,6 +2,11 @@ package labs.collectionwork;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 public class Employee {
 
@@ -9,8 +14,8 @@ public class Employee {
 		MALE, FEMALE
 	}
 
-	public static Gender buildGender(String string) {
-		switch (string) {
+	public static Gender castGender(String gender) {
+		switch (gender) {
 		case "Male":
 			return Gender.MALE;
 		case "Female":
@@ -19,6 +24,42 @@ public class Employee {
 			throw new IllegalArgumentException("Invalid string representing gender");
 		}
 	}
+	
+	public static int castId(String id) {
+		if(!NumberUtils.isCreatable(id)) {
+			throw new IllegalArgumentException("Invalid string representing id");
+		}
+		return Integer.parseInt(id);
+	}
+	
+	public static Division castDivision(String division) {
+		if(StringUtils.isNumeric(division)) {
+			throw new IllegalArgumentException("Invalid string representing division");
+		}
+		
+		Division d = new Division();
+		d.setId(0);
+		d.setName(division);
+		return d;
+	}
+
+	public static BigDecimal castSalary(String salary) {
+		if(!NumberUtils.isCreatable(salary)) {
+			throw new IllegalArgumentException("Invalid string representing salary");
+		}
+		return NumberUtils.createBigDecimal(salary);
+	}
+	
+	public static LocalDate castDayOfBirth(String dayOfBirth) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		LocalDate date = LocalDate.parse(dayOfBirth, formatter);
+		return date;
+	}
+	
+	public Employee() {
+		super();
+	}
+
 
 	public Employee(int id, String name, Gender gender, Division division, BigDecimal salary, LocalDate dayOfBirth) {
 		super();
@@ -70,10 +111,26 @@ public class Employee {
 		return dayOfBirth;
 	}
 
-	private final int id;
-	private final String name;
-	private final Gender gender;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public void setDayOfBirth(LocalDate dayOfBirth) {
+		this.dayOfBirth = dayOfBirth;
+	}
+
+	private int id;
+	private String name;
+	private Gender gender;
 	private Division division;
 	private BigDecimal salary;
-	private final LocalDate dayOfBirth;
+	private LocalDate dayOfBirth;
 }

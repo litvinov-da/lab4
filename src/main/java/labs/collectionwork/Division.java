@@ -8,6 +8,10 @@ public class Division {
 		this.name = name;
 	}
 
+	public Division() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -20,6 +24,10 @@ public class Division {
 		return id;
 	}
 
-	private final int id;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private int id;
 	private String name;
 }
